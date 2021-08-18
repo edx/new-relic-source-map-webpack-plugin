@@ -309,7 +309,6 @@ describe('javascriptUrl', () => {
         });
 
         webpack(config, () => {
-            console.log(publishSourcemap.mock.calls);
             expect(
                 publishSourcemap.mock.calls.some(
                     call => call[0].javascriptUrl === 'http://examplecdn.com/1.chunk.js'
