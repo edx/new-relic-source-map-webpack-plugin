@@ -21,7 +21,7 @@ function getConfig(config = {}) {
         plugins: [
             new NewRelicSourceMapPlugin({
                 applicationId: 'id',
-                nrAdminKey: 'key',
+                apiKey: 'key',
                 staticAssetUrl: 'http://examplecdn.com',
             }),
         ],
@@ -39,7 +39,7 @@ beforeEach(() => {
 it('throw an error if there is no application id', () => {
     const testFn = () => {
         new NewRelicSourceMapPlugin({
-            nrAdminKey: 'key',
+            apiKey: 'key',
             staticAssetUrl: 'http://examplecdn.com',
         });
     };
@@ -50,7 +50,7 @@ it('doesnt throw an error if there is no application id if noop is true', () => 
     const testFn = () => {
         new NewRelicSourceMapPlugin({
             noop: true,
-            nrAdminKey: 'key',
+            apiKey: 'key',
             staticAssetUrl: 'http://examplecdn.com',
         });
     };
@@ -60,21 +60,21 @@ it('doesnt throw an error if there is no application id if noop is true', () => 
 it('throw an error if there is no staticAssetUrl', () => {
     const testFn = () => {
         new NewRelicSourceMapPlugin({
-            nrAdminKey: 'key',
+            apiKey: 'key',
             applicationId: 'id',
         });
     };
     expect(testFn).toThrowError('staticAssetUrl is required');
 });
 
-it('throw an error if there is no nrAdminKey', () => {
+it('throw an error if there is no apiKey', () => {
     const testFn = () => {
         new NewRelicSourceMapPlugin({
             applicationId: 'key',
             staticAssetUrl: 'http://examplecdn.com',
         });
     };
-    expect(testFn).toThrowError('nrAdminKey is required');
+    expect(testFn).toThrowError('apiKey is required');
 });
 
 it('accepts a user defined staticAssetUrlBuilder', done => {
@@ -83,7 +83,7 @@ it('accepts a user defined staticAssetUrlBuilder', done => {
         plugins: [
             new NewRelicSourceMapPlugin({
                 applicationId: 'id',
-                nrAdminKey: 'key',
+                apiKey: 'key',
                 staticAssetUrl: 'http://examplecdn.com',
                 staticAssetUrlBuilder,
             }),
@@ -107,7 +107,7 @@ it('accepts a user defined extensionRegex', done => {
         plugins: [
             new NewRelicSourceMapPlugin({
                 applicationId: 'id',
-                nrAdminKey: 'key',
+                apiKey: 'key',
                 staticAssetUrl: 'http://examplecdn.com',
                 extensionRegex,
             }),
@@ -127,7 +127,7 @@ it('accepts a user defined errorCallback', done => {
         plugins: [
             new NewRelicSourceMapPlugin({
                 applicationId: 'id',
-                nrAdminKey: 'key',
+                apiKey: 'key',
                 staticAssetUrl: 'http://examplecdn.com',
                 errorCallback,
             }),
@@ -146,7 +146,7 @@ it('sets apply to a noop if noop is passed', done => {
         plugins: [
             new NewRelicSourceMapPlugin({
                 applicationId: 'id',
-                nrAdminKey: 'key',
+                apiKey: 'key',
                 staticAssetUrl: 'http://examplecdn.com',
                 noop: true,
             }),
@@ -164,7 +164,7 @@ it('passes right args to publishSourcemap', done => {
         plugins: [
             new NewRelicSourceMapPlugin({
                 applicationId: 'id',
-                nrAdminKey: 'key',
+                apiKey: 'key',
                 staticAssetUrl: 'http://examplecdn.com',
                 releaseName: 'releaseName',
                 releaseId: '111',
@@ -178,38 +178,12 @@ it('passes right args to publishSourcemap', done => {
                 sourcemapPath: expect.any(String),
                 javascriptUrl: 'http://examplecdn.com/test/publicPath/main.js',
                 applicationId: 'id',
-                nrAdminKey: 'key',
+                apiKey: 'key',
                 releaseName: 'releaseName',
                 releaseId: '111',
             },
             expect.any(Function)
         );
-        done();
-    });
-});
-
-it('succeeds to upload when futureEmitAssets:false', done => {
-    const config = getConfig();
-
-    webpack(config, () => {
-        expect(publishSourcemap).toBeCalled();
-        expect(spyConsoleWarn).not.toBeCalled();
-        done();
-    });
-});
-
-it('succeeds to upload when futureEmitAssets:true', done => {
-    const config = getConfig({
-        output: {
-            path: path.resolve(__dirname, '__output__'),
-            publicPath: '/test/publicPath/',
-            futureEmitAssets: true,
-        },
-    });
-
-    webpack(config, () => {
-        expect(publishSourcemap).toBeCalled();
-        expect(spyConsoleWarn).not.toBeCalled();
         done();
     });
 });
@@ -287,12 +261,11 @@ describe('javascriptUrl', () => {
             output: {
                 path: path.resolve(__dirname, '__output__'),
                 publicPath: '/test/publicPath/',
-                futureEmitAssets: true,
             },
             plugins: [
                 new NewRelicSourceMapPlugin({
                     applicationId: 'id',
-                    nrAdminKey: 'key',
+                    apiKey: 'key',
                     staticAssetUrl: 'http://examplecdn.com/',
                 }),
             ],
@@ -313,7 +286,6 @@ describe('javascriptUrl', () => {
         const config = getConfig({
             output: {
                 path: path.resolve(__dirname, '__output__'),
-                futureEmitAssets: true,
             },
         });
 
@@ -332,11 +304,12 @@ describe('javascriptUrl', () => {
         const config = getConfig({
             output: {
                 path: path.resolve(__dirname, '__output__'),
-                chunkFilename: '[name].chunk.js',
+                chunkFilename: '1.chunk.js',
             },
         });
 
         webpack(config, () => {
+            console.log(publishSourcemap.mock.calls);
             expect(
                 publishSourcemap.mock.calls.some(
                     call => call[0].javascriptUrl === 'http://examplecdn.com/1.chunk.js'

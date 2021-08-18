@@ -2,5 +2,6 @@
 const removeLastCharIfSlash = s => (s ? s.replace(/\/$/, '') : '');
 
 module.exports = (url, publicPath, file) => {
-    return `${removeLastCharIfSlash(url)}${removeLastCharIfSlash(publicPath)}/${file}`;
+    const parsedPublicPath = publicPath === 'auto' ? '' : publicPath;
+    return `${removeLastCharIfSlash(url)}${removeLastCharIfSlash(parsedPublicPath)}/${file}`;
 };

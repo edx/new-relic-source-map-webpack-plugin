@@ -10,7 +10,7 @@ class NewRelicPlugin {
             return;
         }
         this.applicationId = enforceExists(options, 'applicationId');
-        this.nrAdminKey = enforceExists(options, 'nrAdminKey');
+        this.apiKey = enforceExists(options, 'apiKey');
         this.staticAssetUrl = enforceExists(options, 'staticAssetUrl');
         this.staticAssetUrlBuilder = options.staticAssetUrlBuilder || staticAssetUrlBuilder;
         this.extensionRegex = options.extensionRegex || /\.js(\?|$)/;
@@ -24,7 +24,7 @@ class NewRelicPlugin {
             const assets = [];
 
             chunks
-                .map(chunk => chunk.files)
+                .map(chunk => [...Array.from(chunk.files), ...Array.from(chunk.auxiliaryFiles)])
                 .map(files => {
                     const mapRegex = /\.map(\?|$)/;
                     const fileName = files.find(file => this.extensionRegex.test(file));
@@ -52,7 +52,7 @@ class NewRelicPlugin {
                         url: this.staticAssetUrl,
                         publicPath: stats.compilation.outputOptions.publicPath,
                         outputPath: stats.compilation.outputOptions.path,
-                        nrAdminKey: this.nrAdminKey,
+                        apiKey: this.apiKey,
                         applicationId: this.applicationId,
                         releaseName: this.releaseName,
                         releaseId: this.releaseId,

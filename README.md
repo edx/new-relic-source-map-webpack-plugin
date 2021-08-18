@@ -14,7 +14,7 @@ or
 
 Instantiate the plugin and add it to your plugins array.
 
-`applicationId`, `nrAdminKey`, and `staticAssetUrl` are required unless `noop` is `true`.  Full list of options in the next section.
+`applicationId`, `apiKey`, and `staticAssetUrl` are required unless `noop` is `true`.  Full list of options in the next section.
 
 ```js
 const NewRelicSourceMapPlugin = require('new-relic-source-map-webpack-plugin');
@@ -25,7 +25,7 @@ module.exports = {
         ...yourPlugins,
         new NewRelicSourceMapPlugin({
             applicationId: 'YOUR NEW RELIC APP ID',
-            nrAdminKey: process.env.NR_ADMIN_KEY,
+            apiKey: process.env.NR_ADMIN_KEY,
             staticAssetUrl: 'http://examplecdn.com',
             noop: typeof process.env.NR_ADMIN_KEY === 'undefined', // upload source maps in prod builds only
         })
@@ -41,7 +41,7 @@ that you use the [`newrelic.addRelease`](https://docs.newrelic.com/docs/browser/
 | Property       | Type           | Description  |
 | ------------- |:-------------:| -----:|
 | applicationId     | string | applicationId as defined [here](https://docs.newrelic.com/docs/browser/new-relic-browser/installation-configuration/copy-browser-monitoring-license-key-app-id) |
-| nrAdminKey     | string |   Admin Key as defined [here](https://docs.newrelic.com/docs/apis/rest-api-v2/requirements/api-keys) |
+| apiKey         | string |   API Key as defined [here](https://docs.newrelic.com/docs/apis/rest-api-v2/requirements/api-keys) |
 | staticAssetUrl | string | the domain your production assets are served from. Written as a complete url. Example: "https://www.examplecdn.com" |
 | staticAssetUrlBuilder | function | A function for building the production url your js file is built from.  Will be called for every javascript file with four arguments: staticAssetUrl, the public path from your webpack config, the filename, and the [webpack stats instance](https://github.com/webpack/webpack/blob/master/lib/Stats.js).  Defaults to `${removeLastCharIfSlash(url)}${removeLastCharIfSlash(publicPath)}/${file}` |
 | extensionRegex | regex | a regex used to find js files. Defaults to `/\.js$/` |
