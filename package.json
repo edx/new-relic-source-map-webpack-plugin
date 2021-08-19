@@ -16,6 +16,9 @@
         "upload",
         "uploader"
     ],
+    "publishConfig": {
+        "access": "public"
+    },
     "scripts": {
         "test": "jest",
         "lint": "eslint './**/*.+(js)'",
