@@ -1,11 +1,11 @@
 {
-    "name": "new-relic-source-map-webpack-plugin",
-    "version": "1.2.0",
+    "name": "@edx/new-relic-source-map-webpack-plugin",
+    "version": "1.0.0-semantically-released",
     "description": "Upload source maps to new relic as part of a webpack build.",
     "main": "index.js",
-    "repository": "git@github.com:1stdibs/new-relic-source-map-webpack-plugin.git",
-    "author": "Walker Flynn <walker@1stdibs.com>",
-    "license": "MIT",
+    "repository": "https://github.com/edx/new-relic-source-map-webpack-plugin.git",
+    "author": "edX",
+    "license": "AGPL-3.0",
     "keywords": [
         "webpack",
         "plugin",
@@ -19,11 +19,12 @@
     "scripts": {
         "test": "jest",
         "lint": "eslint './**/*.+(js)'",
-        "prettier:fix": "prettier '**/*.{js,json}' --write"
+        "prettier:fix": "prettier '**/*.{js,json}' --write",
+        "lint-staged": "lint-staged"
     },
     "husky": {
         "hooks": {
-            "pre-commit": "yarn lint-staged"
+            "pre-commit": "npm run lint-staged"
         }
     },
     "lint-staged": {

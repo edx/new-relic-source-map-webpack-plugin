@@ -4,9 +4,7 @@ Upload source maps to new relic as part of a webpack build.
 
 ## Install
 
-`yarn add new-relic-source-map-webpack-plugin --dev`
-or
-`npm install new-relic-source-map-webpack-plugin --save-dev`
+`npm install @edx/new-relic-source-map-webpack-plugin --save-dev`
 
 ## Setup
 
@@ -23,9 +21,9 @@ module.exports = {
         ...yourPlugins,
         new NewRelicSourceMapPlugin({
             applicationId: 'YOUR NEW RELIC APP ID',
-            apiKey: process.env.NEW_RELIC_API_KEY,
+            apiKey: process.env.NEW_RELIC_ADMIN_KEY,
             staticAssetUrl: 'http://examplecdn.com',
-            noop: typeof process.env.NR_ADMIN_KEY === 'undefined', // upload source maps in prod builds only
+            noop: typeof process.env.NEW_RELIC_ADMIN_KEY === 'undefined', // upload source maps in prod builds only
         })
     ]   
 }

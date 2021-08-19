@@ -1,6 +1,6 @@
 'use strict';
 const { publishSourcemap } = require('@newrelic/publish-sourcemap');
-const NewRelicSourceMapPlugin = require('../index.js');
+const NewRelicSourceMapPlugin = require('../index');
 const path = require('path');
 const webpack = require('webpack');
 
