@@ -60,6 +60,7 @@ class NewRelicPlugin {
                 )
             )
                 .then(values => {
+                    // eslint-disable-next-line no-console
                     values.forEach(v => console.log(`sourceMap for ${v} uploaded to newrelic`));
                 })
                 .catch(err => {
@@ -69,6 +70,7 @@ class NewRelicPlugin {
     }
     _getDefaultErrorCallback() {
         return err => {
+            // eslint-disable-next-line no-console
             console.warn(`New Relic sourcemap upload error: ${err}`);
         };
     }
