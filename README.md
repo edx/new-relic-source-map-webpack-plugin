@@ -4,7 +4,7 @@ Upload source maps to new relic as part of a webpack build.
 
 ## Install
 
-`npm install @edx/new-relic-source-map-webpack-plugin --save-dev` or `yarn add @edx/new-relic-source-map-webpack-plugin --dev`
+`npm install @edx/new-relic-source-map-webpack-plugin --save-dev`
 ## Setup
 
 Instantiate the plugin and add it to your plugins array.

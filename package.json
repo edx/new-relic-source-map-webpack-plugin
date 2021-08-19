@@ -19,11 +19,12 @@
     "scripts": {
         "test": "jest",
         "lint": "eslint './**/*.+(js)'",
-        "prettier:fix": "prettier '**/*.{js,json}' --write"
+        "prettier:fix": "prettier '**/*.{js,json}' --write",
+        "lint-staged": "lint-staged"
     },
     "husky": {
         "hooks": {
-            "pre-commit": "yarn lint-staged"
+            "pre-commit": "npm run lint-staged"
         }
     },
     "lint-staged": {
