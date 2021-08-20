@@ -3,11 +3,5 @@
     "patch": {
         "automerge": true
     },
-    "rebaseStalePrs": true,
-    "packageRules": [
-        {
-            "packagePatterns": ["eslint"],
-            "groupName": "eslint"
-        }
-    ]
+    "rebaseStalePrs": true
 }
