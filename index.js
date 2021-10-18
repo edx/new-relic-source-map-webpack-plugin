@@ -20,7 +20,7 @@ class NewRelicPlugin {
     }
     apply(compiler) {
         compiler.hooks.done.tapPromise('new-relic-source-map-webpack-plugin', stats => {
-            const chunks = stats.compilation.chunks;
+            const chunks = Array.from(stats.compilation.chunks);
             const assets = [];
 
             chunks
