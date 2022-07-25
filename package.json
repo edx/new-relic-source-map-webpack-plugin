@@ -65,7 +65,7 @@
         "jest": "^24.8.0",
         "lint-staged": "^9.2.1",
         "prettier": "^1.18.2",
-        "webpack": "^5.68.0"
+        "webpack": "5.74.0"
     },
     "dependencies": {
         "@newrelic/publish-sourcemap": "^5.0.1"
