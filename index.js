@@ -24,7 +24,7 @@ class NewRelicPlugin {
             const assets = [];
 
             chunks
-                .map(chunk => [...Array.from(chunk.files), ...Array.from(chunk.auxiliaryFiles)])
+                .map(chunk => [...Array.from(chunk.files || []), ...Array.from(chunk.auxiliaryFiles || [])])
                 .map(files => {
                     const mapRegex = /\.map(\?|$)/;
                     const fileName = files.find(file => this.extensionRegex.test(file));
